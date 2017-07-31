@@ -1,0 +1,6 @@
+{
+  "map": "map/ateltown/background.png",
+  "arrows": [
+    {"target": "ateltown/inn", "type": "map", "animation": "fade", "x": 200, "y": 300, "orientation": 0}
+  ]
+}
