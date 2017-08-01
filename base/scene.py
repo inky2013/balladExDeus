@@ -1,6 +1,7 @@
 import pyglet
 from base.saves.assets import AssetManager
 
+
 class Scene:
     def __init__(self, name, z_index):
         self.z_index = z_index
@@ -118,11 +119,19 @@ class SceneManager(Scene):
 
     def add(self, scene):
         self.scenes.append(scene)
-        self.scenes.sort(key=lambda x: x.z_index)
+        self.scenes.sort(key=lambda x: x.z_index, reverse=True)
 
     def __getitem__(self, item):
         return self.get(item)
 
     def remove(self, name):
         self.scenes.remove(self.get(name))
+
+    def __str__(self):
+        scenes = self.scenes
+        scenes.reverse()
+        s = "SceneManager{"
+        for scene in scenes:
+            s += f"SceneManager(\"{scene.name}\"), "
+        return s[:-2] + "}"
 

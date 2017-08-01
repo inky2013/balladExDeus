@@ -11,11 +11,11 @@ class Arrow:
         self.sprite.set_position(x, y)
         self.sprite.rotation = orientation
         self.target, self.animate = target, animate
-        self.sprite.color = balladexdeus.game.config["maps"]["arrow"]["colour"]
+        self.sprite.color = balladexdeus.Game.instance.config["maps"]["arrow"]["colour"]
+        self.sprite.scale = balladexdeus.Game.instance.config["maps"]["arrow"]["scale"]
 
     def click(self):
-        print(self.target())
-        balladexdeus.game.switch_scene("main", self.target(), self.animate)
+        balladexdeus.Game.instance.switch_scene("main", self.target(), self.animate)
 
     def draw(self):
         self.sprite.draw()
@@ -30,7 +30,6 @@ class MapScene(Scene):
         arrow = pyglet.image.load(get_img("map/arrow.png"))
         self.background_sprite = pyglet.sprite.Sprite(map_img)
         self.arrows = list()
-        print(json)
 
         for item in json["arrows"]:
             if item["type"] == "map":
@@ -44,7 +43,7 @@ class MapScene(Scene):
 
     @staticmethod
     def is_arrow_in_bounds(x, y, sprite):
-        return (sprite.x-(sprite.width/2) < x <= sprite.x+(sprite.width/2)) and (sprite.y-(sprite.height/2) < y <= sprite.y+(sprite.height/2))
+        return (sprite.x-((sprite.width*1)/1) < x <= sprite.x+((sprite.width*1)/1)) and (sprite.y-((sprite.height*1)/1) < y <= sprite.y+((sprite.height*1)/1))
 
     def render(self):
         self.background_sprite.draw()
@@ -54,16 +53,16 @@ class MapScene(Scene):
     def on_mouse_up(self, btn, x, y):
         for arrow in self.arrows:
             if self.is_arrow_in_bounds(x, y, arrow.sprite):
-                print("Arrow Press")
                 arrow.click()
                 break
+
 
     def on_mouse_move(self, x, y):
         for arrow in self.arrows:
             if self.is_arrow_in_bounds(x, y, arrow.sprite):
-                arrow.sprite.color = balladexdeus.game.config["maps"]["arrow"]["hover"]
+                arrow.sprite.color = balladexdeus.Game.instance.config["maps"]["arrow"]["hover"]
             else:
-                arrow.sprite.color = balladexdeus.game.config["maps"]["arrow"]["colour"]
+                arrow.sprite.color = balladexdeus.Game.instance.config["maps"]["arrow"]["colour"]
 
 
 class MapLoader:

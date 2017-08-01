@@ -12,7 +12,8 @@ DEFAULT_GAME_CONFIG = {
     "maps": {
         "arrow": {
             "colour": [204, 204, 0],
-            "hover": [70,130,180]
+            "hover": [70,130,180],
+            "scale": 2
         }
     }
 }
